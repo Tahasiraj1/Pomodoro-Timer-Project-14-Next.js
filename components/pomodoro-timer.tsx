@@ -137,7 +137,7 @@ export default function PomodoroTimer() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900"
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8"
         style={{
             backgroundImage: `url('/clock3.jpg')`,
             backgroundPosition: 'center',
