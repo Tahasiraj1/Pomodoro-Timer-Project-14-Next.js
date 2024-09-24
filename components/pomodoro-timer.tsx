@@ -76,7 +76,7 @@ export default function PomodoroTimer() {
             }, 6000)
         }
         return () => clearInterval(timerRef.current as NodeJS.Timeout);
-    }, [state.timerStatus, state.currentTime, audio]);
+    }, [state.timerStatus, state.currentTime, audio, handleSessionSwitch]);
 
     const handleStartPause = (): void => {
         if (state.timerStatus === "running") {
