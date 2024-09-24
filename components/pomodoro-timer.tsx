@@ -80,11 +80,6 @@ export default function PomodoroTimer() {
                 currentTime: isWorkSession ? prevState.breakDuration : prevState.workDuration,
             };
         });
-        
-        if(state.currentTime === 0) {
-
-        }
-    };
 
     const handleStartPause = (): void => {
         if (state.timerStatus === "running") {
