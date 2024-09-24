@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { 
     MinusIcon, 
     PauseIcon, 
-    Play, 
     PlayIcon, 
     PlusIcon, 
     RefreshCwIcon
@@ -21,9 +20,6 @@ import {
     AlertDialogTitle, 
     AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
-import { time } from "console";
-import { workerData } from "worker_threads";
-
 
 type TimerStatus = "idle" | "running" | "paused";
 type SessionType = "work" | "break";
@@ -80,7 +76,7 @@ export default function PomodoroTimer() {
             }, 6000)
         }
         return () => clearInterval(timerRef.current as NodeJS.Timeout);
-    }, [state.timerStatus, state.currentTime]);
+    }, [state.timerStatus, state.currentTime, audio]);
 
     const handleStartPause = (): void => {
         if (state.timerStatus === "running") {
