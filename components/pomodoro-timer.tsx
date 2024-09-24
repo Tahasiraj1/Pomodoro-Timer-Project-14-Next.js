@@ -48,6 +48,17 @@ export default function PomodoroTimer() {
 
     const audio = new Audio('/level-up-191997.mp3');
 
+    const handleSessionSwitch = (): void => {
+        setState((prevState) => {
+            const isWorkSession = prevState.currentSession === "work";
+            return {
+                ...prevState,
+                currentSession: isWorkSession ? "break" : "work",
+                currentTime: isWorkSession ? prevState.breakDuration : prevState.workDuration,
+            };
+        });
+    };
+
     useEffect(() => {
         if (state.timerStatus === 'running' && state.currentTime > 0) {
             timerRef.current = setInterval(() => {
@@ -69,22 +80,8 @@ export default function PomodoroTimer() {
             }, 6000)
         }
         return () => clearInterval(timerRef.current as NodeJS.Timeout);
-    }, [state.timerStatus, state.currentTime]);
+    }, [state.timerStatus, state.currentTime, audio, handleSessionSwitch]);
 
-    const handleSessionSwitch = (): void => {
-        setState((prevState) => {
-            const isWorkSession = prevState.currentSession === "work";
-            return {
-                ...prevState,
-                currentSession: isWorkSession ? "break" : "work",
-                currentTime: isWorkSession ? prevState.breakDuration : prevState.workDuration,
-            };
-        });
-        
-        if(state.currentTime === 0) {
-
-        }
-    };
 
     const handleStartPause = (): void => {
         if (state.timerStatus === "running") {
