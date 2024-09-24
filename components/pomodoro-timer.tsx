@@ -41,12 +41,8 @@ export default function PomodoroTimer() {
         timerStatus: "idle"
     });
     const timerRef = useRef<NodeJS.Timeout | null>(null);
-    const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
-    useEffect(() => {
-        const audio = new Audio('/level-up-191997.mp3');
-    }, [])
-    
+    const audio = useMemo(() => new Audio('/level-up-191997.mp3'), []);
 
     const handleSessionSwitch = useCallback(() => {
         setState((prevState) => {
@@ -69,18 +65,15 @@ export default function PomodoroTimer() {
             }, 1000);
         } else if (state.currentTime === 0) {
             clearInterval(timerRef.current as NodeJS.Timeout);
-            
-            if (audio) {
-                const audioInterval = setInterval(() => {
-                    audio.play();
-                }, 1000);
-                setTimeout(() => {
-                    clearInterval(audioInterval);
-                    audio.pause();
-                    audio.currentTime = 0;
-                    handleSessionSwitch();
-                }, 7000)
-            }
+            const audioInterval = setInterval(() => {
+                audio.play();
+            }, 1000);
+            setTimeout(() => {
+                clearInterval(audioInterval);
+                audio.pause();
+                audio.currentTime = 0;
+                handleSessionSwitch();
+            }, 7000)
         }
         return () => clearInterval(timerRef.current as NodeJS.Timeout);
     }, [state.timerStatus, state.currentTime, handleSessionSwitch, audio]);
